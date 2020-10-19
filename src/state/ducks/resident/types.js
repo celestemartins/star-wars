@@ -1,0 +1,9 @@
+export const FETCH_LIST = "resident/FETCH_LIST";
+export const FETCH_LIST_COMPLETED = "resident/FETCH_LIST_COMPLETED";
+export const FETCH_RESIDENT_FAILED = "resident/FETCH_LIST_FAILED";
+export const SELECT_RESIDENT = "resident/SELECT_RESIDENT";
+export const FETCH_RESIDENT = "resident/FETCH_RESIDENT";
+export const FETCH_RESIDENT_COMPLETED = "resident/FETCH_RESIDENT_COMPLETED";
+export const FETCH_PLANET = "resident/FETCH_PLANET";
+export const FETCH_PLANET_COMPLETED = "resident/FETCH_PLANET_COMPLETED";
+export const SELECT_PLANET = "resident/SELECT_PLANET";
