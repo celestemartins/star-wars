@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { residentOperations } from "../../state/ducks/resident";
+import { residentOperations } from "../state/ducks/resident";
 import { residentShape } from "../propTypes";
 import Grid from "@material-ui/core/Grid";
 import Card from "../components/Card";
@@ -45,7 +45,7 @@ ResidentDetail.propTypes = {
   fetchResident: func.isRequired,
 };
 
-ResidentDetail.prefetch = ({ params }) => {
+ResidentDetail.preFetch = ({ params }) => {
   residentOperations.fetchList(params.permalink);
 };
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Link, Route } from "react-router-dom";
-import routes from "../../routes";
+import routes from "../routes";
 import { withStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
@@ -36,9 +36,13 @@ const styles = () => ({
     paddingLeft: 16,
     justifyContent: "center",
   },
-  main: { paddingRight: 16, paddingLeft: 16, marginTop: 12 },
+  main: { 
+    paddingRight: 16, 
+    paddingLeft: 16, 
+    marginTop: 12 
+  },
   container: {
-    marginTop: 20,
+    marginTop: 8,
   },
 });
 

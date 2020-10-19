@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import Grid from "@material-ui/core/Grid";
 
-import { planetOperations } from "../../state/ducks/planet";
+import { planetOperations } from "../state/ducks/planet";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import SearchInput from "../components/SearchInput";
@@ -97,8 +97,11 @@ function PlanetList({
   }, []);
 
   const handleOnSearch = useCallback(() => {
-    fetchPlanet(searchText);
+    if (searchText) {
+      fetchPlanet(searchText);
+    }
   }, [fetchPlanet, searchText]);
+ 
   return (
     <>
       <SearchInput onSearch={handleOnSearch} onChange={setSearchText} />
@@ -150,7 +153,7 @@ PlanetList.defaultProps = {
   planets: {},
 };
 
-PlanetList.prefetch = planetOperations.fetchList;
+PlanetList.preFetch = planetOperations.fetchList;
 
 const mapStateToProps = (state) => {
   return {

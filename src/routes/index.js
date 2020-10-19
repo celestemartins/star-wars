@@ -1,4 +1,4 @@
-import { ResidentDetail, ResidentList, PlanetList } from "../views/pages";
+import { ResidentDetail, ResidentList, PlanetList } from "../pages";
 
 const routes = [
   {
