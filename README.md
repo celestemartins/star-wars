@@ -10,6 +10,18 @@ _This project was bootstrapped with Create React App and uses Redux to manage ap
 
 - Run `npm start` in the command line.
 
-
 ## About project the structure
 The project is divided into state and views in order to be able to modify the app state management easily. 
+
+## Challenge
+
+- Use the Star Wars API to get a list of all the planets in the Star Wars Universe. ✔︎
+- Display all of those planets in a list on the front page of your app. ✔︎
+- Add a text input at the top of the page that allows a user to search the full list of planets. ✔︎
+- When a user clicks on a planet, they should navigate to a new page that shows a list of the residents of the planet fetched from the Star Wars API. ✔︎
+- When a user clicks on one of the residents, they should navigate to another page that shows the personal details of that resident. ✔︎
+- Include a header with breadcrumbs. Something like All Planets / Planet Name / Resident Name. Each breadcrumb section should be clickable to navigate to the appropriate page. ✔︎
+- Include a service file that contains all the api urls and gets. Your React components should not contain any url references. ✔︎
+
+
+## [TRY IT!](https://cm-starwars.netlify.app/)
