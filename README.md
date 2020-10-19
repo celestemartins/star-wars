@@ -1,4 +1,4 @@
-# Battleship
+# Star Wars
 
 _This project was bootstrapped with Create React App and uses Redux to manage application state_
 
