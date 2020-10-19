@@ -1,3 +1,3 @@
-import { fetchList, fetchPlanet } from "./actions";
+import { fetchList } from "./actions";
 
-export { fetchList, fetchPlanet };
+export { fetchList };

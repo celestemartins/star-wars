@@ -8,13 +8,15 @@ import { withStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
 const styles = () => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden",
-    backgroundColor: "#fff",
-  },
+  container: {
+      display: "flex",
+      flexDirection: "column",
+      overflow: "hidden",
+    },
   header: {
+    flexShrink: 0
+  },
+  title: {
     width: "100%",
     height: 40,
     backgroundColor: "rgba(0,0,0,0.8)",
@@ -35,41 +37,54 @@ const styles = () => ({
     alignItems: "center",
     paddingLeft: 16,
     justifyContent: "center",
+    flexShrink: 0
   },
-  main: { 
-    paddingRight: 16, 
-    paddingLeft: 16, 
-    marginTop: 12 
-  },
-  container: {
+  breadcrumbs: { 
     marginTop: 8,
+    marginLeft: 16
   },
+  routesContainer: {
+    flexGrow: 1,
+    overflow: 'auto',
+    minHeight: '2em'
+  },
+  // container: {
+  //   width: '100%;',
+  //   height: '100%;',
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   flexWrap: 'nowrap'
+  // }
 });
 
 function App({ classes, planet, resident }) {
   return (
-    <>
-      <div className={classes.header}>Star Wars</div>
-      <div className={classes.main}>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div className={classes.title}>
+        Star Wars
+        </div>
+      <div className={classes.breadcrumbs}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link to="/">Planets</Link>
-          <Link to={planet ? `/planets/${planet}` : "#"}>
-            {planet ? planet : "Planet Name"}
-          </Link>
-          <Link to={resident ? `/residents/${resident}` : "#"}>
-            {resident ? resident : "Resident"}
-          </Link>
+          {planet && <Link to={`/planets/${planet}`}>
+            {planet}
+          </Link>}
+          {resident && <Link to={`/residents/${resident}`}>
+            {resident}
+          </Link>}
         </Breadcrumbs>
-        <div className={classes.container}>
+        </div>
+      </div>
+        <div className={classes.routesContainer}>
           {routes.map((route) => (
             <Route key={route.path} {...route} />
           ))}
         </div>
-      </div>
-      <footer className={classes.footer}>
-        Copyright © 2020 Celeste Martins. All rights reserved.
-      </footer>
-    </>
+        <footer className={classes.footer}>
+         Copyright © 2020 Celeste Martins. All rights reserved.
+       </footer>
+    </div>
   );
 }
 

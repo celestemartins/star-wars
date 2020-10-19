@@ -14,7 +14,6 @@ const styles = () => ({
     marginRight: 12,
   },
   icon: {
-    cursor: "pointer",
     color: "rgba(0,0,0,0.8)",
     marginRight: 8,
   },
@@ -31,11 +30,7 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-function SearchInput({ classes, onSearch, onChange }) {
-  const handleOnSearch = useCallback(() => {
-    onSearch();
-  }, [onSearch]);
-
+function SearchInput({ classes, onChange }) {
   const handleOnChange = useCallback(
     (e) => {
       onChange(e.target.value);
@@ -45,7 +40,7 @@ function SearchInput({ classes, onSearch, onChange }) {
 
   return (
     <div className={classes.container}>
-      <SearchRoundedIcon className={classes.icon} onClick={handleOnSearch} />
+      <SearchRoundedIcon className={classes.icon}/>
       <CssTextField
         id="standard-search"
         label="Search Planets"
@@ -58,7 +53,6 @@ function SearchInput({ classes, onSearch, onChange }) {
 
 SearchInput.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSearch: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

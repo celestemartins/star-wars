@@ -11,14 +11,3 @@ export const fetchList = (number = 1) => ({
   },
 });
 
-export function fetchPlanet(name) {
-  return {
-    type: types.FETCH_PLANET,
-    meta: {
-      async: true,
-      blocking: true,
-      path: `/planets/?search=${encodeURIComponent(name)}`,
-      method: "GET",
-    },
-  };
-}

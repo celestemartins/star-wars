@@ -4,7 +4,7 @@ import "./style.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./state/store";
-import App from "./views/layouts/app";
+import App from "./layouts/app";
 const reduxStore = configureStore(window.REDUX_INITIAL_DATA);
 
 const RootHtml = () => (

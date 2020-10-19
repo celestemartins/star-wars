@@ -5,7 +5,7 @@ import { residentOperations } from "../state/ducks/resident";
 import { residentShape } from "../propTypes";
 import Grid from "@material-ui/core/Grid";
 import Card from "../components/Card";
-import Loading from "../components/Loading";
+import Message from "../components/Message";
 import { useHistory } from "react-router-dom";
 
 function ResidentList({
@@ -20,7 +20,7 @@ function ResidentList({
 }) {
   const history = useHistory();
   const [message, setMessage] = useState();
-
+  
   useEffect(() => {
     // updated selected planet and resident
     if (!selected || selected !== match.params.id) {
@@ -51,6 +51,14 @@ function ResidentList({
     [history, selectResident]
   );
 
+  const handleGoBack = useCallback(
+    async () => {
+      selectResident('');
+      await history.push(`/`);
+    },
+    [history, selectResident]
+  );
+
   const mappedResidents = useMemo(() => {
     return residents?.map(({ name }) => (
       <Grid item xs={6} key={name}>
@@ -77,10 +85,8 @@ function ResidentList({
             {mappedResidents}
           </Grid>
         </>
-      ) : message ? (
-        message
-      ) : (
-        <Loading />
+      ) :(
+        <Message  text={message ? message : "Loading..."} onClick={message ? {action: handleGoBack, label: 'GO BACK'} : null}/>
       )}
     </>
   );

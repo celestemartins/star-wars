@@ -8,56 +8,56 @@ import Grid from "@material-ui/core/Grid";
 
 import { planetOperations } from "../state/ducks/planet";
 import Card from "../components/Card";
-import Loading from "../components/Loading";
+import Message from "../components/Message";
 import SearchInput from "../components/SearchInput";
 import { filterItems } from "../utils/filterDiacritics";
 
 const styles = () => ({
+  container: {
+    height: '100%',
+    width: '100%'
+  },
   footer: {
-    position: "absolute",
-    bottom: 40,
     width: "100%",
     display: "flex",
     justifyContent: "flex-end",
     marginLeft: -30,
+    position: 'fixed',
+    bottom: 'auto'
+  },
+  searchContainer: {
+    height: 46
   },
   search: {
     fontSize: 20,
     paddingTop: 100,
     textAlign: "center",
-  },
+  }
 });
 
 function PlanetList({
   classes,
-  fetchPlanet,
   fetchList,
   planets,
   count,
-  searchFailed = false,
   loading,
+  error
 }) {
   const history = useHistory();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState("");
 
   const currentPlanets = useMemo(() => {
-    if (!loading) {
+    if (!loading && !error) {
       return planets[currentPage];
     }
-  }, [currentPage, loading, planets]);
+  }, [error,currentPage, loading, planets]);
 
   useEffect(() => {
-    if (searchFailed) {
-      setSearchText("");
-    }
-  }, [searchFailed]);
-
-  useEffect(() => {
-    if (!loading && !currentPlanets?.length > 0) {
+    if (!loading && !error && !currentPlanets?.length > 0) {
       fetchList(currentPage);
     }
-  }, [currentPage, currentPlanets, fetchList, loading, planets]);
+  }, [error, currentPage, currentPlanets, fetchList, loading, planets]);
 
   const handleOnClick = useCallback(
     (name) => {
@@ -65,6 +65,10 @@ function PlanetList({
     },
     [history]
   );
+
+  const handleReload = useCallback(() => {
+  window.location.reload()
+},[])
 
   const planetsList = useMemo(() => {
     if (planets && planets.byId) {
@@ -96,23 +100,15 @@ function PlanetList({
     setCurrentPage(number);
   }, []);
 
-  const handleOnSearch = useCallback(() => {
-    if (searchText) {
-      fetchPlanet(searchText);
-    }
-  }, [fetchPlanet, searchText]);
  
   return (
-    <>
-      <SearchInput onSearch={handleOnSearch} onChange={setSearchText} />
+    <div className={classes.container}>
+      <div className={classes.searchContainer}>
+         {!error && <SearchInput onChange={setSearchText} />}
+      </div>
       {searchText && !planetsList?.length ? (
-        <div className={classes.search}>
-          {" "}
-          We didn't find results. Type the planet name and press the Search
-          button so we can search deeper :)
-        </div>
+         <Message text="We didn't find results."/>
       ) : planetsList ? (
-        <>
           <Grid
             container
             direction="row-reverse"
@@ -121,9 +117,8 @@ function PlanetList({
           >
             {planetsList}
           </Grid>
-        </>
-      ) : (
-        <Loading />
+      ) : error ? <Message text="An error ocurred..." onClick={{action: handleReload, label: 'RELOAD'}}/> : (
+        <Message text="Loading..."/>
       )}
       <div className={classes.footer}>
         <Pagination
@@ -133,7 +128,7 @@ function PlanetList({
           onChange={handleOnClickNext}
         />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -143,9 +138,8 @@ PlanetList.propTypes = {
   classes: object.isRequired,
   planets: PropTypes.oneOfType([object, array]).isRequired,
   fetchList: func.isRequired,
-  fetchPlanet: func.isRequired,
-  searchFailed: bool,
   loading: bool,
+  error:  bool,
   count: number,
 };
 
@@ -159,13 +153,13 @@ const mapStateToProps = (state) => {
   return {
     planets: state.planet.items,
     count: state.planet.count,
-    searchFailed: state.planet.searchFailed,
+    error: state.planet.error,
+    loading: state.planet.loading,
   };
 };
 
 const mapDispatchToProps = {
-  fetchList: planetOperations.fetchList,
-  fetchPlanet: planetOperations.fetchPlanet,
+  fetchList: planetOperations.fetchList
 };
 
 export default connect(

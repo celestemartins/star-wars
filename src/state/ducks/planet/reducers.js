@@ -31,26 +31,15 @@ const planetsReducer = createReducer([])({
       next: action.payload.next,
       count: action.payload.count,
       loading: false,
+      error: false
     };
   },
-  [types.FETCH_PLANET_COMPLETED]: (state, action) => {
-    const result = action.payload.results && action.payload.results[0];
-    if (result) {
-      return {
-        ...state,
-        searchFailed: false,
-        items: {
-          ...state.items,
-          byId: {
-            ...state.byId,
-            [result.name]: { ...result },
-          },
-        },
-      };
-    } else {
-      return { ...state, searchFailed: true };
-    }
-  },
+  [types.FETCH_LIST_FAILED]: (state, action) => {
+    return {
+      ...state,
+      error: true,
+      loading: false
+  }}
 });
 
 export default planetsReducer;
