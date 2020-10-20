@@ -58,7 +58,7 @@ function ResidentList({
       selectPlanet('');
       await history.push(`/`);
     },
-    [history, selectResident]
+    [history, selectPlanet]
   );
 
   const mappedResidents = useMemo(() => {

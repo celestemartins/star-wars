@@ -14,6 +14,7 @@ function ResidentDetail({ fetchResident, name, resident, selectResident,selectPl
      selectResident('')
      selectPlanet('')
      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [] );
 
   useEffect(() => {
