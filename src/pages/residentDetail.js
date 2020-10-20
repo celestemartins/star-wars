@@ -6,7 +6,7 @@ import { residentShape } from "../propTypes";
 import Grid from "@material-ui/core/Grid";
 import Card from "../components/Card";
 
-function ResidentDetail({ fetchResident, resident, name }) {
+function ResidentDetail({ fetchResident, name, resident }) {
   useEffect(() => {
     if (!resident) {
       fetchResident(name);
@@ -40,9 +40,9 @@ function ResidentDetail({ fetchResident, resident, name }) {
 const { string, func } = PropTypes;
 
 ResidentDetail.propTypes = {
+  fetchResident: func.isRequired,
   name: string.isRequired,
   resident: residentShape,
-  fetchResident: func.isRequired,
 };
 
 ResidentDetail.preFetch = ({ params }) => {

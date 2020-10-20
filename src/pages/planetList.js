@@ -12,36 +12,43 @@ import Message from "../components/Message";
 import SearchInput from "../components/SearchInput";
 import { filterItems } from "../utils/filterDiacritics";
 
-const styles = () => ({
-  container: {
-    height: '100%',
-    width: '100%'
-  },
+const styles = (theme) => ({
   footer: {
     width: "100%",
     display: "flex",
     justifyContent: "flex-end",
     marginLeft: -30,
     position: 'fixed',
-    bottom: 'auto'
+    bottom: 'auto',
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+      margin: 0
+    }
   },
   searchContainer: {
-    height: 46
+    height: 'auto',
+    marginBottom: -24
   },
   search: {
     fontSize: 20,
     paddingTop: 100,
     textAlign: "center",
+  },
+  content: {
+    height: 660,
+    [theme.breakpoints.down('xs')]: {
+      height: 600
+    }
   }
 });
 
 function PlanetList({
   classes,
-  fetchList,
-  planets,
   count,
+  error,
+  fetchList,
   loading,
-  error
+  planets
 }) {
   const history = useHistory();
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,11 +109,12 @@ function PlanetList({
 
  
   return (
-    <div className={classes.container}>
+    <>
       <div className={classes.searchContainer}>
          {!error && <SearchInput onChange={setSearchText} />}
       </div>
-      {searchText && !planetsList?.length ? (
+      <div className={classes.content}>
+        {searchText && !planetsList?.length ? (
          <Message text="We didn't find results."/>
       ) : planetsList ? (
           <Grid
@@ -120,6 +128,7 @@ function PlanetList({
       ) : error ? <Message text="An error ocurred..." onClick={{action: handleReload, label: 'RELOAD'}}/> : (
         <Message text="Loading..."/>
       )}
+      </div>
       <div className={classes.footer}>
         <Pagination
           count={count / 10}
@@ -128,7 +137,7 @@ function PlanetList({
           onChange={handleOnClickNext}
         />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -136,11 +145,11 @@ const { object, func, array, bool, number } = PropTypes;
 
 PlanetList.propTypes = {
   classes: object.isRequired,
-  planets: PropTypes.oneOfType([object, array]).isRequired,
+  count: number,
+  error:  bool,
   fetchList: func.isRequired,
   loading: bool,
-  error:  bool,
-  count: number,
+  planets: PropTypes.oneOfType([object, array]).isRequired,
 };
 
 PlanetList.defaultProps = {

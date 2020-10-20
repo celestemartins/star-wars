@@ -1,19 +1,21 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { residentOperations } from "../state/ducks/resident";
-import { residentShape } from "../propTypes";
+import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
+
+import { residentShape } from "../propTypes";
+import { residentOperations } from "../state/ducks/resident";
+
 import Card from "../components/Card";
 import Message from "../components/Message";
-import { useHistory } from "react-router-dom";
 
 function ResidentList({
-  planet,
-  residents,
-  match,
   fetchList,
   fetchPlanet,
+  match,
+  planet,
+  residents,
   selectResident,
   selectPlanet,
   selected,
@@ -73,35 +75,32 @@ function ResidentList({
   }, [handleOnClick, residents]);
 
   return (
-    <>
-      {mappedResidents ? (
-        <>
-          <Grid
-            container
-            direction="row-reverse"
-            justify="space-between"
-            alignItems="center"
-          >
-            {mappedResidents}
-          </Grid>
-        </>
-      ) :(
-        <Message  text={message ? message : "Loading..."} onClick={message ? {action: handleGoBack, label: 'GO BACK'} : null}/>
-      )}
-    </>
+      mappedResidents ? (
+        <Grid
+          container
+          direction="row-reverse"
+          justify="space-between"
+          alignItems="center"
+        >
+          {mappedResidents}
+        </Grid>
+    ) :(
+      <Message  text={message ? message : "Loading..."} onClick={message ? {action: handleGoBack, label: 'GO BACK'} : null}/>
+    )
   );
 }
 
-const { string, object, func } = PropTypes;
+const { array, string, object, func } = PropTypes;
 
 ResidentList.propTypes = {
-  planet: residentShape,
-  selected: string,
   fetchList: func.isRequired,
-  selectResident: func.isRequired,
   fetchPlanet: func.isRequired,
-  selectPlanet: func.isRequired,
   match: object.isRequired,
+  selected: string,
+  planet: residentShape,
+  residents: array, 
+  selectResident: func.isRequired,
+  selectPlanet: func.isRequired,
 };
 
 ResidentList.preFetch = ({ params }) => {
@@ -115,6 +114,7 @@ ResidentList.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   const planetParam = ownProps.match.params?.id;
   let planet = null;
+  // next iteration: SELECTORS HERE!
   if (state.planet?.items?.byId && state.planet?.items?.byId[planetParam]) {
     // Planet param (name) is in our pagination and we found it.
     planet = state.planet?.items?.byId[planetParam];

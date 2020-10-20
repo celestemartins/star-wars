@@ -5,13 +5,20 @@ import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     display: "flex",
     alignItems: "flex-end",
     marginBottom: 20,
     float: "right",
     marginRight: 12,
+    marginTop: -24,
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'center',
+      marginTop: -20,
+      marginBottom: 36,
+      float: 'initial'
+    }
   },
   icon: {
     color: "rgba(0,0,0,0.8)",

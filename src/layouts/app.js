@@ -8,13 +8,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
 const styles = () => ({
-  container: {
-      display: "flex",
-      flexDirection: "column",
-      overflow: "hidden",
-    },
-  header: {
-    flexShrink: 0
+  wrapper: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   title: {
     width: "100%",
@@ -41,26 +38,18 @@ const styles = () => ({
   },
   breadcrumbs: { 
     marginTop: 8,
-    marginLeft: 16
+    marginLeft: 16,
+    marginBottom: 24
   },
   routesContainer: {
-    flexGrow: 1,
-    overflow: 'auto',
-    minHeight: '2em'
-  },
-  // container: {
-  //   width: '100%;',
-  //   height: '100%;',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   flexWrap: 'nowrap'
-  // }
+    flex: 1,
+    overflow: 'auto'
+  }
 });
 
 function App({ classes, planet, resident }) {
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
+    <div className={classes.wrapper}>
         <div className={classes.title}>
         Star Wars
         </div>
@@ -75,15 +64,14 @@ function App({ classes, planet, resident }) {
           </Link>}
         </Breadcrumbs>
         </div>
-      </div>
-        <div className={classes.routesContainer}>
+      <div className={classes.routesContainer}>
           {routes.map((route) => (
             <Route key={route.path} {...route} />
           ))}
-        </div>
-        <footer className={classes.footer}>
-         Copyright © 2020 Celeste Martins. All rights reserved.
-       </footer>
+      </div>
+      <footer className={classes.footer}>
+        Copyright © 2020 Celeste Martins. All rights reserved.
+      </footer>
     </div>
   );
 }
