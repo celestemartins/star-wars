@@ -50,6 +50,7 @@ function PlanetList({
   loading,
   planets
 }) {
+
   const history = useHistory();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState("");
@@ -74,8 +75,9 @@ function PlanetList({
   );
 
   const handleReload = useCallback(() => {
-  window.location.reload()
-},[])
+     window.location.reload()
+  },[])
+
 
   const planetsList = useMemo(() => {
     if (planets && planets.byId) {
@@ -115,7 +117,7 @@ function PlanetList({
       </div>
       <div className={classes.content}>
         {searchText && !planetsList?.length ? (
-         <Message text="We didn't find results."/>
+         <Message text="We couldn't find results."/>
       ) : planetsList ? (
           <Grid
             container
