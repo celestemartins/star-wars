@@ -1,8 +1,6 @@
 import * as types from "./types";
 import { createReducer, modelate } from "../../utils";
 
-
-
 const planetsReducer = createReducer([])({
   [types.FETCH_LIST]: (state) => {
     return {

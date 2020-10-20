@@ -22,7 +22,7 @@ function ResidentList({
 }) {
   const history = useHistory();
   const [message, setMessage] = useState();
-  
+
   useEffect(() => {
     // updated selected planet and resident
     if (!selected || selected !== match.params.id) {
@@ -55,7 +55,7 @@ function ResidentList({
 
   const handleGoBack = useCallback(
     async () => {
-      selectResident('');
+      selectPlanet('');
       await history.push(`/`);
     },
     [history, selectResident]

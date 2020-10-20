@@ -47,7 +47,7 @@ const styles = () => ({
   }
 });
 
-function App({ classes, planet, resident }) {
+function App({ classes, planet, resident }) {  
   return (
     <div className={classes.wrapper}>
         <div className={classes.title}>

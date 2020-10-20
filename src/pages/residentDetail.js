@@ -6,7 +6,16 @@ import { residentShape } from "../propTypes";
 import Grid from "@material-ui/core/Grid";
 import Card from "../components/Card";
 
-function ResidentDetail({ fetchResident, name, resident }) {
+function ResidentDetail({ fetchResident, name, resident, selectResident,selectPlanet }) {
+
+  useEffect(() => {
+    return () => { 
+      // When component unmount remove selected resident and planet
+     selectResident('')
+     selectPlanet('')
+     }
+  }, [] );
+
   useEffect(() => {
     if (!resident) {
       fetchResident(name);
@@ -43,6 +52,8 @@ ResidentDetail.propTypes = {
   fetchResident: func.isRequired,
   name: string.isRequired,
   resident: residentShape,
+  selectResident: func.isRequired,
+  selectPlanet: func.isRequired,
 };
 
 ResidentDetail.preFetch = ({ params }) => {
@@ -68,6 +79,8 @@ const mapStateToProps = (state = {}, ownProps) => {
 
 const mapDispatchToProps = {
   fetchResident: residentOperations.fetchResident,
+  selectResident: residentOperations.selectResident,
+  selectPlanet: residentOperations.selectPlanet,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResidentDetail);
